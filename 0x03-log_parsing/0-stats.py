@@ -1,3 +1,4 @@
+
 #!/usr/bin/python3
 """
 Log parsing
@@ -37,3 +38,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print_stats(stats, filesize)
         raise
+
