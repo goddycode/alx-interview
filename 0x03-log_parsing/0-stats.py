@@ -1,68 +1,55 @@
+#!/usr/bin/python3
+""" log parsing """
 import sys
 
-# Define valid status codes
-VALID_CODES = {"200", "301", "400", "401", "403", "404", "405", "500"}
+
+def print_logs(status_counts, total_size):
+    """ prints current logs """
+    print("File size: {}".format(total_size))
+    for key, val in sorted(status_counts.items()):
+        if val != 0:
+            print("{}: {}".format(key, val))
+
 
 # Initialize variables
 total_size = 0
-line_count = 0
-status_counts = {code: 0 for code in VALID_CODES}
-invalid_lines = 0  # Track the number of lines with invalid format
+status_code_counts = {
+    "200": 0,
+    "301": 0,
+    "400": 0,
+    "401": 0,
+    "403": 0,
+    "404": 0,
+    "405": 0,
+    "500": 0
+}
+line_counter = 0
 
-def print_stats():
-    """Prints statistics on total file size and status code counts."""
-    print(f"Total file size: {total_size}")
-    print("Number of lines by status code:")
-    for code, count in sorted(status_counts.items()):
-        if count:
-            print(f"{code}: {count}")
-    print()  # Add an empty line for better readability
+try:
+    # Read input lines from standard input
+    for line in sys.stdin:
+        # Split the line into parts and reverse the order
+        parsed_line = line.split()
+        parsed_line = parsed_line[::-1]
 
-def parse_log_line(line):
-    """Parses a log line and updates metrics."""
-    data = line.strip().split()
+        # Check if line has enough parts
+        if len(parsed_line) > 2:
+            line_counter += 1
 
-    # Check if the line format is valid (6 elements)
-    if len(data) != 6:
-        invalid_lines += 1
-        return
+            # Process up to 10 lines
+            if line_counter <= 10:
+                total_size += int(parsed_line[0])  # Accumulate file size
+                status_code = parsed_line[1]  # Get status code
 
-    # Extract elements (handle potential exceptions)
-    try:
-        ip_address = data[0]
-        # Date is optional, not used for metrics
-        # status_code = int(data[4])  # Potential error if not integer
-        status_code = data[4]  # Extract status code as string for validation
-        if status_code not in VALID_CODES:
-            return  # Skip lines with invalid status code
-        status_code = int(status_code)  # Convert to integer after validation
+                # Check if status code is valid and update count
+                if status_code in status_code_counts:
+                    status_code_counts[status_code] += 1
 
-        file_size = int(data[5])
+            # Every 10 lines, print logs
+            if line_counter == 10:
+                print_logs(status_code_counts, total_size)
+                line_counter = 0  # Reset line counter
 
-        # Update total size and status code counts
-        total_size += file_size
-        status_counts[status_code] += 1
-
-    except ValueError:
-        # Handle potential conversion errors (invalid format)
-        invalid_lines += 1
-        pass
-
-
-if __name__ == "__main__":
-    try:
-        for line in sys.stdin:
-            line_count += 1
-            parse_log_line(line)
-
-            # Print statistics every 10 lines or on interrupt
-            if line_count % 10 == 0 or line_count == 1:
-                print_stats()
-
-    except KeyboardInterrupt:
-        print("\nKeyboardInterrupt received. Printing final statistics:")
-        print_stats()
-
-    # Print information about invalid lines (optional)
-    if invalid_lines:
-        print(f"Number of lines with invalid format: {invalid_lines}")
+finally:
+    # Print final logs
+    print_logs(status_code_counts, total_size)
