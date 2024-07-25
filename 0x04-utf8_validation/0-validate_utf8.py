@@ -3,7 +3,7 @@
 
 
 def validUTF8(data):
-    """ validates UTF-8 encoding """
+    """ validates UTF-8 encoding
 
     """
     # Step 1: turn data into binary
@@ -49,7 +49,6 @@ def validUTF8(data):
             return False
 
     return True
-    """
     # Initialize the number of expected continuation bytes
     n_bytes = 0
 
