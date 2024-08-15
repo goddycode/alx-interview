@@ -1,60 +1,66 @@
+0x07. Rotate 2D Matrix
+======================
 
-# Curriculum: Short Specializations
+Algorithm Python
 
-0x00. Pascal's Triangle
-## Resources
-1. What is Pascal’s triangle - https://www.cuemath.com/algebra/pascals-triangle/
-2. Pascal’s Triangle - Numberphile - https://www.youtube.com/watch?v=0iMtlus-afo
-3. What are Python Algorithms - https://builtin.com/data-science/python-algorithms
-## Additional Resources
-. Mock Technical Interview - https://www.youtube.com/watch?v=1qw5ITr3k9E
-## Authors
+-   By Godfrey Odhiambo, Software Engineer
+-   Weight: 1
 
-- [@goddycode](https://www.github.com/goddycode)
+Requirements
+------------
 
+### General
 
-## Must Know
-To successfully complete this project, you should revise the following Python concepts:
+-   Allowed editors: `vi`, `vim`, `emacs`
+-   All your files will be interpreted/compiled on Ubuntu 20.04 LTS using `python3` (version 3.8.10)
+-   All your files should end with a new line
+-   The first line of all your files should be exactly `#!/usr/bin/python3`
+-   A `README.md` file, at the root of the folder of the project, is mandatory
+-   Your code should use the `pycodestyle` style (version 2.8.0)
+-   You are not allowed to import any module
+-   All modules and functions must be documented
+-   All your files must be executable
 
-- Lists and List Comprehensions:
+Tasks
+-----
 
-Understand how to create, access, modify, and iterate over lists.
-Utilize list comprehensions for more concise and readable code, especially for generating rows of Pascal’s Triangle.
-Functions:
+### 0\. Rotate 2D Matrix
 
-- Know how to define and call functions.
-Pass parameters and return values, particularly how to return a list of lists representing Pascal’s Triangle.
-Loops:
+mandatory
 
-- Use for and while loops to iterate through sequences.
-Nested loops may be necessary for generating each row and calculating the values of Pascal’s Triangle.
-Conditional Statements:
+Given an `n` x `n` 2D matrix, rotate it 90 degrees clockwise.
 
-- Apply if, elif, and else conditions to implement logic based on the position within Pascal’s Triangle (e.g., the edges of the triangle always being 1).
-Recursion (Optional):
+-   Prototype: `def rotate_2d_matrix(matrix):`
+-   Do not return anything. The matrix must be edited **in-place**.
+-   You can assume the matrix will have 2 dimensions and will not be empty.
 
-- While not strictly necessary, understanding recursion can provide an alternative approach to generating Pascal’s Triangle.
-Recognize base cases and recursive cases for a function that generates the triangle’s rows.
-Arithmetic Operations:
+```
+vagrant@magma:~$ cat main_0.py
+#!/usr/bin/python3
+"""
+Test 0x07 - Rotate 2D Matrix
+"""
+rotate_2d_matrix = __import__('0-rotate_2d_matrix').rotate_2d_matrix
 
-- Perform addition, a fundamental operation for calculating each element of Pascal’s Triangle as the sum of the two elements directly above it.
-Indexing and Slicing:
+if __name__ == "__main__":
+    matrix = [[1, 2, 3],
+              [4, 5, 6],
+              [7, 8, 9]]
 
-- Access elements and slices of lists, crucial for identifying and summing the correct elements when constructing each row of the triangle.
-Memory Management:
+    rotate_2d_matrix(matrix)
+    print(matrix)
 
-- Be mindful of how lists are stored and copied, especially when creating new rows based on the values of the previous row.
-Error and Exception Handling (Optional):
+vagrant@magma:~$
+vagrant@magma:~$ ./main_0.py
+[[7, 4, 1],
+[8, 5, 2],
+[9, 6, 3]]
+vagrant@magma:~$
 
-- Use try-except blocks as needed to handle potential errors, such as invalid input types or values.
-Efficiency and Optimization:
+```
 
-- Consider the time and space complexity of different approaches to generating Pascal’s Triangle.
-- Evaluate and apply optimizations to improve the performance of the solution.
-- By revisiting these concepts, you will be well-prepared to tackle the challenges of implementing Pascal’s Triangle in Python, applying both your mathematical understanding and programming skills to develop an efficient and effective solution.
-## Tasks : 0. Pascal's Triangle
+**Repo:**
 
-Create a function def pascal_triangle(n): that returns a list of lists of integers representing the Pascal’s triangle of n:
-
-- Returns an empty list if n <= 0
-- You can assume n will be always an integer
+-   GitHub repository: `alx-interview`
+-   Directory: `0x07-rotate_2d_matrix`
+-   File: `0-rotate_2d_matrix.py`
